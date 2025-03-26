@@ -1,0 +1,56 @@
+services:
+  footballapi:
+    image: footballapi
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+    depends_on:
+      - sqlserver
+      # - mongodb    # Commented out MongoDB dependency
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - DOTNET_RUNNING_IN_CONTAINER=true
+      - ASPNETCORE_URLS=http://+:80
+      # Database configuration
+      - DatabaseType=SqlServer
+      # SQL Server connection
+      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=FootballDB;User=sa;Password=MyStrong@Passw0rd;TrustServerCertificate=True;
+      # MongoDB connection (commented out)
+      # - ConnectionStrings__MongoConnection=mongodb://mongodb:27017
+      # - MongoDB__DatabaseName=FootballAPI
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=MyStrong@Passw0rd
+    ports:
+      - "1433:1433"
+    volumes:
+      - football-sqlserver-data:/var/opt/mssql
+    healthcheck:
+      test: /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "MyStrong@Passw0rd" -Q "SELECT 1" || exit 1
+      interval: 10s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
+
+  # MongoDB service (commented out)
+  # mongodb:
+  #   image: mongo:latest
+  #   ports:
+  #     - "27017:27017"
+  #   volumes:
+  #     - football-mongodb-data:/data/db
+  #   healthcheck:
+  #     test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
+  #     interval: 10s
+  #     timeout: 10s
+  #     retries: 5
+  #     start_period: 10s
+
+volumes:
+  football-sqlserver-data:
+  # football-mongodb-data:    # Commented out MongoDB volume
