@@ -1,57 +1,42 @@
-# Interview Template (Football API)
+# Clean API with CRUD Operations and Background Services
 
-## Introduction
+## Overview
 
-This page was created to give general instructions to complete the Interview Test for FXStreet. 
+This repository implements a CRUD API using clean code principles, design patterns, and a focus on maintainability, scalability, and testability. The project showcases the usage of design patterns like the **Factory Pattern**, **Repository Pattern**, and **Unit of Work** to properly structure the code.
 
-## Football API :soccer:
+Additionally, the project uses **OOP** principles for better organization and traceability. In the future, the code could be migrated to a more structured solution, such as moving to Azure Functions or other cloud-based solutions.
 
-The aim of this API is to store information about players, managers, referees, matches and league information. Each controller has 4 actions:
+---
 
-* GET
-* POST
-* PUT
-* DELETE
+## Features
 
-## Goals
+- **CRUD Operations**: Basic Create, Read, Update, and Delete operations.
+- **Background Services**: Handles long-running tasks independently from user requests.
+- **Design Patterns**: Implements Factory, Repository, and Unit of Work patterns to keep the application maintainable and scalable.
+- **Clean Code**: Emphasis on writing clean, readable, and maintainable code.
 
-1. Fix current errors in the API
-2. Implement Statistics controller following Clean Clode practices
-3. Create a Job that notifies 5 minutes before a game starts incorrect alignments
-4. The other controllers (Manager, Match, Player, Referee) are not well implemented. What are the things you would improve? Provide that information in comments with //TODO:
+---
 
-## Instructions
+## Setup and Installation
 
-1. Clone the repository and execute it, it should compile but once run some errors might appear
-2. Resolve every Goal 
-3. The Web API must persist the data in whatever database you feel comfortable.
-4. The code must be available in a Github repository.
-5. In order to complete Goal 3 Go to [this link](http://interview-api.azurewebsites.net/swagger/index.html) and consume /api/IncorrectAlignment
-6. In the default implementation a local Database is created in C:\Users\[user]\AppData\Local\Microsoft\Microsoft SQL Server Local DB\Instances\MSSQLLocalDB
-7. We have initialized some Entities but Matches are empty, feel free to initialize them.
-8. Once you have finished the exercise send an Email (alain@fxstreet.com and luis@fxstreet.com) following the Email Template described bellow.
+This project is designed to be run with Docker. Follow these steps to get it up and running:
 
-## Rules
+1. **Clone the repository**
 
-1. The code must be in .net8.
-2. The code must be available in GitHub.
-4. There is no time for completition, but bear in mind that interview process can be close at any time.
+   ```bash
+   git clone https://github.com/LCPS1/BackendInterview.git
+   cd BackendInterview
 
-## Coding Tips
+2. **Build and run the application using Docker**
 
-1. The controller IncorrectAlignment is the endpoint that you need to consume for the GOAL 3 of the exercise.
-2. Take into account that we will probably switch repository type to other technology like MongoDB
-3. As department we strongly believe in Clean Code and SOLID Principles :heart_eyes:, show us that you too.
-4. We want to see your testing capabilities, despite is a CRUD web app, the GOAL 3 gives some room for it.
-5. If you feel comfortable you can use some DevOps tool (Azure Devops, jenkins, etc..) to deploy the Web API but is not compulsive.
-6. IMPORTANT :running: In case you didn't have the time to include certain capability/feature/technology comment them on the email and we will discuss it later on the interview.
+   Ensure you have Docker installed, then run the following command to build and start the containers:
 
-## Email Template
+   ```bash
+   docker-compose up --build -d
+   
+3. **Access the API**
 
-Subject: FXStreet Interview - [Your full name]
+   Once the containers are running, open your browser and visit:
 
-Body: 
-
-* Github Url
-* Persistence Technology + Screenshot of the model
-* Comments
+   ```bash
+   http://localhost:8080/swagger/index.html
